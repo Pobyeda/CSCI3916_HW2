@@ -95,41 +95,30 @@ router.route('/movies')
     .get(function (req, res) {
         res.json({status: 200, msg: "Get movies", headers: req.headers, query: req.query, env: process.env.UNIQUE_KEY});
     })
-// router.route('/movies')
-//     .post(authJwtController.isAuthenticated, function (req, res) {
-//             console.log(req.body);
-//             res = res.status(200);
-//             if (req.get('Content-Type')) {
-//                 console.log("Content-Type: " + req.get('Content-Type'));
-//                 res = res.type(req.get('Content-Type'));
-//             }
-//             var o = getJSONObject(req);
-//             res.send(JSON.stringify({status: res.statusCode, msg: "Movie saved", headers: o.headers, query: req.query, host: o.key }));
-//         }
-//     );
 
-// router.route('/movies')
-//     .put(authJwtController.isAuthenticated, function (req, res) {
-//         console.log(req.body);
-//         res = res.status(200);
-//         if(req.get('Content-Type')){
-//             console.log("Content-Type: " + req.get('Content-Type'));
-//             res = res.type(req.get('Content-Type'));
-//         }
-//         var o = getJSONObject(req);
-//         res.send(JSON.stringify({status: res.statusCode, msg: "Movie updated", headers: o.headers, query: req.query, host: o.key }));
-//     });
-// router.route('/movies')
-//     .delete(authController.isAuthenticated, function (req, res) {
-//         console.log(req.body);
-//         res = res.status(200);
-//         if(req.get('Content-Type')){
-//             console.log("Content-Type: " + req.get('Content-Type'));
-//             res = res.type(req.get('Content-Type'));
-//         }
-//         var o = getJSONObject(req);
-//         res.send(JSON.stringify({status: res.statusCode, msg: "Movie deleted", headers: o.headers, query: req.query, host: o.key }));
-//     });
+    .post(function (req, res) {
+        res.json({status: 200, msg: "movie saved", headers: req.headers, query: req.query, env: process.env.UNIQUE_KEY});
+    })
+
+    .put(authJwtController.isAuthenticated, function(req, res) {
+        res.json({status: 200, msg: "movie updated", headers: req.headers, query: req.query, env: process.env.UNIQUE_KEY});
+    })
+
+    .delete(function (req, res) {
+        var user = db.findOne(req.body.username);
+        if(!user) {
+            res.status(401).send({success: false, msg: "Authentication failed. User not found"});
+        } else {
+            if(req.body.password === user.password){
+                // var userToken = { id : user.id, username: user.username };
+                // var token = jwt.sign(userToken, process.env.SECRET_KEY);
+                res.json({status: 200, message: "Movie Deleted", headers: req.headers, query: req.query,env: process.env.UNIQUE_KEY});
+            }
+            else{
+                res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
+            }
+        }
+    });
 
 //Invalid route
 router.all('*', function(req, res) {res.json({error: 'Your HTTP method is not supported. Fix it please.👮‍'}); });
