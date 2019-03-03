@@ -110,8 +110,6 @@ router.route('/movies')
             res.status(401).send({success: false, msg: "Authentication failed. User not found"});
         } else {
             if(req.body.password === user.password){
-                // var userToken = { id : user.id, username: user.username };
-                // var token = jwt.sign(userToken, process.env.SECRET_KEY);
                 res.json({status: 200, message: "Movie Deleted", headers: req.headers, query: req.query,env: process.env.UNIQUE_KEY});
             }
             else{
@@ -126,4 +124,4 @@ router.all('*', function(req, res) {res.json({error: 'Your HTTP method is not su
 app.use('/', router);
 app.listen(process.env.PORT || 80);
 
-module.exports = app; // for testing
+module.exports = app;
