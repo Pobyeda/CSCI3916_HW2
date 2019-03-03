@@ -138,7 +138,7 @@ router.post('/signin', function(req, res) {
 //     });
 
 //Invalid route
-router.all('*', function(req, res) {res.json({error: 'Unsupported HTTP method'}); });
+//router.all('*', function(req, res) {res.json({error: 'Unsupported HTTP method'}); });
 
 app.use('/', router);
 app.listen(process.env.PORT || 80);
