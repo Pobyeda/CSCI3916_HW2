@@ -32,7 +32,7 @@ function getJSONObject(req) {
     return json;
 }
 
-router.route('/postjwt')
+router.route('/post')
     .post(authController.isAuthenticated, function (req, res) {
             console.log(req.body);
             res = res.status(200);
@@ -45,51 +45,17 @@ router.route('/postjwt')
         }
     );
 
-router.route('/movies')
-    .post(authJwtController.isAuthenticated, function (req, res) {
+router.route('/postjwt')
+    .post(authController.isAuthenticated, function (req, res) {
             console.log(req.body);
             res = res.status(200);
             if (req.get('Content-Type')) {
                 console.log("Content-Type: " + req.get('Content-Type'));
                 res = res.type(req.get('Content-Type'));
             }
-            var o = getJSONObject(req);
-            res.send(JSON.stringify({status: res.statusCode, msg: "Movie saved", headers: o.headers, query: req.query, host: o.key }));
+            res.send(req.body);
         }
     );
-router.route('/movies')
-    .get(authJwtController.isAuthenticated, function (req, res) {
-        console.log(req.body);
-        res = res.status(200);
-        if(req.get('Content-Type')){
-            console.log("Content-Type: " + req.get('Content-Type'));
-            res = res.type(req.get('Content-Type'));
-        }
-        var o = getJSONObject(req);
-        res.send(JSON.stringify({status: res.statusCode, msg: "Get movie", headers: o.headers, query: req.query, host: o.key }));
-    });
-router.route('/movies')
-    .put(authJwtController.isAuthenticated, function (req, res) {
-        console.log(req.body);
-        res = res.status(200);
-        if(req.get('Content-Type')){
-            console.log("Content-Type: " + req.get('Content-Type'));
-            res = res.type(req.get('Content-Type'));
-        }
-        var o = getJSONObject(req);
-        res.send(JSON.stringify({status: res.statusCode, msg: "Movie updated", headers: o.headers, query: req.query, host: o.key }));
-    });
-router.route('/movies')
-    .delete(authController.isAuthenticated, function (req, res) {
-        console.log(req.body);
-        res = res.status(200);
-        if(req.get('Content-Type')){
-            console.log("Content-Type: " + req.get('Content-Type'));
-            res = res.type(req.get('Content-Type'));
-        }
-        var o = getJSONObject(req);
-        res.send(JSON.stringify({status: res.statusCode, msg: "Movie deleted", headers: o.headers, query: req.query, host: o.key }));
-    });
 
 router.post('/signup', function(req, res) {
     if (!req.body.username || !req.body.password) {
@@ -107,23 +73,72 @@ router.post('/signup', function(req, res) {
 
 router.post('/signin', function(req, res) {
 
-        var user = db.findOne(req.body.username);
+    var user = db.findOne(req.body.username);
 
-        if (!user) {
-            res.status(401).send({success: false, msg: 'Authentication failed. User not found.'});
+    if (!user) {
+        res.status(401).send({success: false, msg: 'Authentication failed. User not found.'});
+    }
+    else {
+        // check if password matches
+        if (req.body.password == user.password)  {
+            var userToken = { id : user.id, username: user.username };
+            var token = jwt.sign(userToken, process.env.SECRET_KEY);
+            res.json({success: true, token: 'JWT ' + token});
         }
         else {
-            // check if password matches
-            if (req.body.password == user.password)  {
-                var userToken = { id : user.id, username: user.username };
-                var token = jwt.sign(userToken, process.env.SECRET_KEY);
-                res.json({success: true, token: 'JWT ' + token});
-            }
-            else {
-                res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
-            }
-        };
+            res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
+        }
+    };
 });
+
+// router.route('/movies')
+//     .post(authJwtController.isAuthenticated, function (req, res) {
+//             console.log(req.body);
+//             res = res.status(200);
+//             if (req.get('Content-Type')) {
+//                 console.log("Content-Type: " + req.get('Content-Type'));
+//                 res = res.type(req.get('Content-Type'));
+//             }
+//             var o = getJSONObject(req);
+//             res.send(JSON.stringify({status: res.statusCode, msg: "Movie saved", headers: o.headers, query: req.query, host: o.key }));
+//         }
+//     );
+// router.route('/movies')
+//     .get(authJwtController.isAuthenticated, function (req, res) {
+//         console.log(req.body);
+//         res = res.status(200);
+//         if(req.get('Content-Type')){
+//             console.log("Content-Type: " + req.get('Content-Type'));
+//             res = res.type(req.get('Content-Type'));
+//         }
+//         var o = getJSONObject(req);
+//         res.send(JSON.stringify({status: res.statusCode, msg: "Get movie", headers: o.headers, query: req.query, host: o.key }));
+//     });
+// router.route('/movies')
+//     .put(authJwtController.isAuthenticated, function (req, res) {
+//         console.log(req.body);
+//         res = res.status(200);
+//         if(req.get('Content-Type')){
+//             console.log("Content-Type: " + req.get('Content-Type'));
+//             res = res.type(req.get('Content-Type'));
+//         }
+//         var o = getJSONObject(req);
+//         res.send(JSON.stringify({status: res.statusCode, msg: "Movie updated", headers: o.headers, query: req.query, host: o.key }));
+//     });
+// router.route('/movies')
+//     .delete(authController.isAuthenticated, function (req, res) {
+//         console.log(req.body);
+//         res = res.status(200);
+//         if(req.get('Content-Type')){
+//             console.log("Content-Type: " + req.get('Content-Type'));
+//             res = res.type(req.get('Content-Type'));
+//         }
+//         var o = getJSONObject(req);
+//         res.send(JSON.stringify({status: res.statusCode, msg: "Movie deleted", headers: o.headers, query: req.query, host: o.key }));
+//     });
+
+//Invalid route
+router.all('*', function(req, res) {res.json({error: 'Unsupported HTTP method'}); });
 
 app.use('/', router);
 app.listen(process.env.PORT || 80);
