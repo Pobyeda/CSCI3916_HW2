@@ -91,6 +91,10 @@ router.post('/signin', function(req, res) {
     };
 });
 
+router.route('/movies')
+    .get(function (req, res) {
+        res.json({status: 200, msg: "Get movies", headers: req.headers, query: req.query, env: process.env.UNIQUE_KEY});
+    })
 // router.route('/movies')
 //     .post(authJwtController.isAuthenticated, function (req, res) {
 //             console.log(req.body);
@@ -103,17 +107,7 @@ router.post('/signin', function(req, res) {
 //             res.send(JSON.stringify({status: res.statusCode, msg: "Movie saved", headers: o.headers, query: req.query, host: o.key }));
 //         }
 //     );
-// router.route('/movies')
-//     .get(authJwtController.isAuthenticated, function (req, res) {
-//         console.log(req.body);
-//         res = res.status(200);
-//         if(req.get('Content-Type')){
-//             console.log("Content-Type: " + req.get('Content-Type'));
-//             res = res.type(req.get('Content-Type'));
-//         }
-//         var o = getJSONObject(req);
-//         res.send(JSON.stringify({status: res.statusCode, msg: "Get movie", headers: o.headers, query: req.query, host: o.key }));
-//     });
+
 // router.route('/movies')
 //     .put(authJwtController.isAuthenticated, function (req, res) {
 //         console.log(req.body);
