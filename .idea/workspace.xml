@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d8a4e336-0500-42cb-b36c-bd67c6b77a37" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/auth_jwt.js" beforeDir="false" afterPath="$PROJECT_DIR$/auth_jwt.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -41,8 +42,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="140" column="2" selection-start-line="140" selection-start-column="2" selection-end-line="140" selection-end-column="2" />
+            <state relative-caret-position="191">
+              <caret line="138" lean-forward="true" selection-start-line="138" selection-end-line="138" />
             </state>
           </provider>
         </entry>
@@ -97,6 +98,8 @@
       <find>app.get</find>
       <find>a</find>
       <find>https</find>
+      <find>UNIQUE_KEY</find>
+      <find>SECRET_K</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -107,10 +110,10 @@
       <list>
         <option value="$PROJECT_DIR$/auth.js" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/auth_jwt.js" />
-        <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/db.js" />
+        <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/auth_jwt.js" />
         <option value="$PROJECT_DIR$/server.js" />
       </list>
     </option>
@@ -190,24 +193,24 @@
       <workItem from="1551416147728" duration="21000" />
       <workItem from="1551416396218" duration="340000" />
       <workItem from="1551505083106" duration="70000" />
-      <workItem from="1551505241604" duration="11410000" />
+      <workItem from="1551505241604" duration="11873000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11848000" />
+    <option name="totallyTimeSpent" value="12311000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="23" width="1273" height="730" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25079873" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25079873" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="TypeScript" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32876712" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49840257" visible="true" weight="0.3213166" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49840257" visible="true" weight="0.3213166" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3410959" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -306,8 +309,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="140" column="2" selection-start-line="140" selection-start-column="2" selection-end-line="140" selection-end-column="2" />
+        <state relative-caret-position="191">
+          <caret line="138" lean-forward="true" selection-start-line="138" selection-end-line="138" />
         </state>
       </provider>
     </entry>
