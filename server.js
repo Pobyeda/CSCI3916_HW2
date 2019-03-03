@@ -116,7 +116,7 @@ router.post('/signin', function(req, res) {
             // check if password matches
             if (req.body.password == user.password)  {
                 var userToken = { id : user.id, username: user.username };
-                var token = jwt.sign(userToken, process.env.UNIQUE_KEY);
+                var token = jwt.sign(userToken, process.env.SECRET_KEY);
                 res.json({success: true, token: 'JWT ' + token});
             }
             else {
@@ -126,6 +126,6 @@ router.post('/signin', function(req, res) {
 });
 
 app.use('/', router);
-app.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT || 80);
 
 module.exports = app; // for testing
