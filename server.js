@@ -118,8 +118,12 @@ router.route('/movies')
         }
     });
 
-//Invalid route
-router.all('*', function(req, res) {res.json({error: 'Your HTTP method is not supported. Fix it please.👮‍'}); });
+//All other routs and methods
+router.all('*', function(req, res) {
+    res.json({
+        error: 'Your HTTP method is not supported. Fix it please.👮‍'
+    });
+});
 
 app.use('/', router);
 app.listen(process.env.PORT || 80);
